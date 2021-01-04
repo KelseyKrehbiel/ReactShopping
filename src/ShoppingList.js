@@ -9,6 +9,8 @@ export default function ShoppingList(props) {
         <ShoppingItem
           key={i}
           item={item}
+          onDeleteItem={props.onDeleteItem}
+          onCheckItem={props.onCheckItem}
         />
       )}
     </ul>

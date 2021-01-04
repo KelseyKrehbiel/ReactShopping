@@ -1,6 +1,6 @@
 import React from 'react';
-import AddItemForm from './shopping-list/AddItemForm';
-import ShoppingList from './shopping-list/ShoppingList';
+import AddItemForm from './AddItemForm';
+import ShoppingList from './ShoppingList';
 
 class App extends React.Component {
   state = {
@@ -12,6 +12,39 @@ class App extends React.Component {
     ]
   };
 
+handleDeleteItem = (item) =>{
+  console.log('handle delete item called')
+  const newItems = this.state.shoppingItems.filter(itm => itm !== item)
+  this.setState({
+    shoppingItems: newItems
+  })
+}  
+handleCheckItem = (item) =>{
+  console.log('handle check item called')
+  const newItems = this.state.shoppingItems.map(itm => {
+    if (itm === item) {
+      itm.checked = !itm.checked
+    }
+    return itm
+  })
+  this.setState({
+    shoppingItems: newItems
+  })
+}
+
+handleAddItem = (itemName) => {
+  console.log('handle add item', { itemName })
+  //... is the spread operator
+  const newItems = [
+    
+    ...this.state.shoppingItems,
+    { name: itemName, checked: false }
+  ]
+  this.setState({
+    shoppingItems: newItems
+  })
+}
+
   render() {
     return (
       <>
@@ -20,10 +53,15 @@ class App extends React.Component {
         </header>
         <main>
           <section>
-            <AddItemForm />
+            <AddItemForm 
+              onAddItem={this.handleAddItem}
+            />
           </section>
           <section>
-            <ShoppingList items={this.state.shoppingItems} />
+            <ShoppingList items={this.state.shoppingItems} 
+              onDeleteItem={this.handleDeleteItem}
+              onCheckItem={this.handleCheckItem}
+            />
           </section>
         </main>
       </>
