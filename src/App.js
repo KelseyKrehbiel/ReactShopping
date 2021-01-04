@@ -14,6 +14,7 @@ class App extends React.Component {
 
 handleDeleteItem = (item) =>{
   console.log('handle delete item called')
+  //return everything that does not match the selected item
   const newItems = this.state.shoppingItems.filter(itm => itm !== item)
   this.setState({
     shoppingItems: newItems
@@ -21,6 +22,7 @@ handleDeleteItem = (item) =>{
 }  
 handleCheckItem = (item) =>{
   console.log('handle check item called')
+  //look for itm that matches item. toggle the check state
   const newItems = this.state.shoppingItems.map(itm => {
     if (itm === item) {
       itm.checked = !itm.checked
@@ -31,12 +33,12 @@ handleCheckItem = (item) =>{
     shoppingItems: newItems
   })
 }
-
+//use => instead of normal funciton to fix binding 
 handleAddItem = (itemName) => {
   console.log('handle add item', { itemName })
   //... is the spread operator
   const newItems = [
-    
+  
     ...this.state.shoppingItems,
     { name: itemName, checked: false }
   ]
